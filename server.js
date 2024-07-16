@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Import cors middleware
 
 dotenv.config();
 
@@ -10,6 +11,15 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// CORS configuration
+const corsOptions = {
+    origin: 'https://v1mlife.com', // Allow requests from this origin
+    methods: ['POST'], // Allow POST requests
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 app.post('/send-email', (req, res) => {
     const { email, result } = req.body;
