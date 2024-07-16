@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS configuration
 const corsOptions = {
-    origin: 'https://v1mlife.com', // Allow requests from this origin
+    origin: 'https://v1mlife.com/pages/sleep-style-quiz', // Allow requests from this origin
     methods: ['POST'], // Allow POST requests
     optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
