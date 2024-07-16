@@ -1,9 +1,12 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,17 +14,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/send-email', (req, res) => {
     const { email, result } = req.body;
 
-    // Create a transporter
     const transporter = nodemailer.createTransport({
-        service: 'Gmail', // or another email service
+        service: 'Gmail',
         auth: {
-            user: 'design@primzen.com',
-            pass: 'DNewCPass1!N'
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
         }
     });
 
     const mailOptions = {
-        from: 'your-email@gmail.com',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: 'Your Sleep Quiz Result',
         text: result
